@@ -11,7 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class firebaseInitializer {
+public class FirebaseInitializer {
 
     @PostConstruct
     private void initFirestore() throws IOException {
