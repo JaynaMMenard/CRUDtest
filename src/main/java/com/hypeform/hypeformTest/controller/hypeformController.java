@@ -39,7 +39,7 @@ public class hypeformController {
     @PostMapping(value ="/addform")
     public ResponseEntity addForm(@RequestBody HypeformDTO hypeform){
 
-        //Create variable to hold service.add(hypeform)? Less manipulation
+
         return new ResponseEntity(service.add(hypeform), HttpStatus.OK);
     }
 
