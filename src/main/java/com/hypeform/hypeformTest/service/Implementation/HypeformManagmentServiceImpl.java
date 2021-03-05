@@ -31,7 +31,7 @@ public class HypeformManagmentServiceImpl implements HypeformManagmentService {
     @Override
     public List<HypeformDTO> formList() {
         List <HypeformDTO> formList = new ArrayList<>();
-        HypeformDTO hypeformCollection;
+        HypeformDTO hypeform;
 
         //QueryS contains zero or more DocumentSnapshot objects representing the results of a query
         ApiFuture<QuerySnapshot> querySnapshotApiFuture = getCollection().get();
@@ -40,9 +40,9 @@ public class HypeformManagmentServiceImpl implements HypeformManagmentService {
             for (DocumentSnapshot doc:querySnapshotApiFuture.get().getDocuments()) {
 
             // Looking for docs with specific ids and adding them to the List formList
-                hypeformCollection = doc.toObject(HypeformDTO.class);
-                hypeformCollection.setId(doc.getId());
-                formList.add(hypeformCollection);
+                hypeform = doc.toObject(HypeformDTO.class);
+                hypeform.setId(doc.getId());
+                formList.add(hypeform);
             }
             return formList;
         } catch (Exception e) {
@@ -54,21 +54,26 @@ public class HypeformManagmentServiceImpl implements HypeformManagmentService {
 
     @Override
     public Boolean add(HypeformDTO hypeform) {
-        Map<String,Object> docData = new HashMap<>();
 
-        //getters predefined in @Data import in DTO class
-        docData.put("formTitle",hypeform.getFormTitle());
-        docData.put("author",hypeform.getAuthor());
-        docData.put("description",hypeform.getDescription());
-        docData.put("formContent",hypeform.getFormContent());
+//  Created seperate method to re-use for add, edit, delete requests
+//        Map<String,Object> docData = new HashMap<>();
+//
+//        //getters predefined in @Data import in DTO class
+//        docData.put("formTitle", hypeform.getFormTitle());
+//        docData.put("author", hypeform.getAuthor());
+//        docData.put("description", hypeform.getDescription());
+//        docData.put("formContent", hypeform.getFormContent());
+
+
+        Map<String, Object> docData = getDocData(hypeform);
 
 
         // Object used for adding documents, getting document references, and querying for documents, Firebase boiler code
         //CollectionReference hypeforms = firebase.getFirestore().collection("hypeformTest");
 
         // New Method created for minimal ctrl+c/v. Line 77
-        CollectionReference hypeforms = getCollection();
-        ApiFuture<WriteResult> writeResultApiFuture = hypeforms.document().create(docData);
+        //CollectionReference hypeforms = getCollection();
+        ApiFuture<WriteResult> writeResultApiFuture = getCollection().document().create(docData);
 
         try {
             if(null != writeResultApiFuture.get()){
@@ -81,19 +86,46 @@ public class HypeformManagmentServiceImpl implements HypeformManagmentService {
         }
     }
 
-
-
     @Override
     public Boolean edit(String id, HypeformDTO hypeform) {
-        return null;
+        Map<String, Object> docData = getDocData(hypeform);
+        ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).set(docData);
+        try {
+            if(null != writeResultApiFuture.get()){
+                return Boolean.TRUE;
+            }
+            return Boolean.FALSE;
+        }
+        catch (Exception e) {
+            return Boolean.FALSE;
+        }
     }
 
     @Override
     public Boolean delete(String id) {
-        return null;
+        ApiFuture<WriteResult> writeResultApiFuture = getCollection().document(id).delete();
+        try {
+            if(null != writeResultApiFuture.get()){
+                return Boolean.TRUE;
+            }
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            return Boolean.FALSE;
+        }
     }
 
     private CollectionReference getCollection() {
         return firebase.getFirestore().collection("hypeformTest");
+    }
+
+    private Map<String, Object> getDocData(HypeformDTO hypeform) {
+        Map<String,Object> docData = new HashMap<>();
+
+        //getters predefined in @Data import in DTO class
+        docData.put("formTitle", hypeform.getFormTitle());
+        docData.put("author", hypeform.getAuthor());
+        docData.put("description", hypeform.getDescription());
+        docData.put("formContent", hypeform.getFormContent());
+        return docData;
     }
 }

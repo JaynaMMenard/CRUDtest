@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 //Use of endpoints
 @RequestMapping(value = "/hypeform")
 //Base URL path ^
-public class hypeformController {
+public class HypeformController {
 
 
     // Responses now referenced directly with this instance + its desired HTTP response identified  in the hfImpl class
@@ -46,7 +46,7 @@ public class hypeformController {
 //Put Request
     @PutMapping(value ="/{id}/update")
     public ResponseEntity edit (@PathVariable(value = "id") String id,@RequestBody HypeformDTO hypeform){
-        return  new ResponseEntity(null, HttpStatus.OK);
+        return  new ResponseEntity(service.edit(id,hypeform), HttpStatus.OK);
     }
 
     // Delete Request
