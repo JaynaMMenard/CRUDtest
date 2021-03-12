@@ -1,8 +1,7 @@
 package com.hypeform.hypeformTest.controller;
 
 import com.hypeform.hypeformTest.datatransobj.HypeformDTO;
-import com.hypeform.hypeformTest.service.HypeformManagmentService;
-import org.apache.coyote.Response;
+import com.hypeform.hypeformTest.service.HypeformManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,7 @@ public class HypeformController {
 
     // Responses now referenced directly with this instance + its desired HTTP response identified  in the hfImpl class
     @Autowired
-    private HypeformManagmentService service;
+    private HypeformManagementService service;
 
 
 
@@ -33,7 +32,7 @@ public class HypeformController {
     @GetMapping(value = "/formlist")
     public ResponseEntity formList(){
 
-        return new ResponseEntity(null, HttpStatus.OK);
+        return new ResponseEntity(service.formList(), HttpStatus.OK);
     }
 //Post Request
     @PostMapping(value ="/addform")

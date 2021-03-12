@@ -6,8 +6,8 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.hypeform.hypeformTest.datatransobj.HypeformDTO;
-import com.hypeform.hypeformTest.service.HypeformManagmentService;
-import com.hypeform.hypeformTest.util.FirebaseInitializer;
+import com.hypeform.hypeformTest.service.HypeformManagementService;
+import com.hypeform.hypeformTest.firebase.FirebaseInitializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 @Service
 
 //Implementations of Interface methods
-public class HypeformManagmentServiceImpl implements HypeformManagmentService {
+public class HypeformManagementServiceImpl implements HypeformManagementService {
 
 
     //Used to inject a particular instance in a method. Spring finds specific property

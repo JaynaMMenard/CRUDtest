@@ -6,7 +6,7 @@ import java.util.List;
 
 
 //Defined in the Controller class,defined here
-public interface HypeformManagmentService {
+public interface HypeformManagementService {
 
     //Holds data objects from DTO class in in a list
 List<HypeformDTO> formList();
