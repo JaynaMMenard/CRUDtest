@@ -1,0 +1,59 @@
+
+
+import java.time.OffsetDateTime;
+
+public class HypeformDTO {
+    private String userID;
+    private String formID;
+    private String title;
+    private OffsetDateTime dateCreated;
+    private boolean welcome4Public;
+    private Question[] questions;
+    private String description;
+    private String publishedURL;
+    private Style style;
+    private long submissions;
+
+}
+
+// Question.java
+
+
+
+public class Question {
+    private String title;
+    private String type;
+    private boolean required;
+    private String desc;
+    private Media[] media;
+    private Option[] options;
+
+}
+
+// Media.java
+
+
+
+public class Media {
+    private String type;
+    private String src;
+
+}
+
+// Option.java
+
+public class Option {
+    private String categoryType;
+    private String content;
+    private Boolean correct;
+
+}
+
+// Style.java
+
+public class Style {
+    private String fontStyle;
+    private String primaryColor;
+    private String secondaryColor;
+
+}
