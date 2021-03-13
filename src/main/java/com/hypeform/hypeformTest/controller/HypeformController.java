@@ -51,6 +51,6 @@ public class HypeformController {
     // Delete Request
 @DeleteMapping(value ="{id}/delete")
     public ResponseEntity delete (@PathVariable(value = "id") String id){
-        return new ResponseEntity(null, HttpStatus.OK);
+        return new ResponseEntity(service.delete(id), HttpStatus.OK);
 }
 }
